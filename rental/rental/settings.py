@@ -1,11 +1,15 @@
 import os
 from pathlib import Path
+import environ
 
+
+env = environ.Env()
+environ.Env.read_env(env_file='../.env')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = 'django-insecure-uc_4*lz^@dipz&8unk1$hnszkb551t!w+(&&hmtyf*tix*5q8p'
+SECRET_KEY = env.get_value('SECRET_KEY')
 
 
 DEBUG = True
@@ -66,7 +70,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "postgres",
         "USER": "postgres",
-        "PASSWORD": "вфеф4323",
+        "PASSWORD": env.get_value('DB_PASSWORD'),
         "HOST": "localhost",  # set in docker-compose.yml
         "PORT": 5432,  # default postgres port
     }
