@@ -1,0 +1,89 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <div class="username__form-wrapper">
+        <div class="username__form-block">
+            <div class="user__greeting">
+                <h1>{{ username }}</h1>
+            </div>
+            <div class="form__create">
+                {% include 'booking/tamplate_tags/create_new_post.html' %}
+            </div>
+        </div>
+        <div class="hot__article-block">
+            <div class="card__sm__block-wrapper">
+                <div class="card__sm-title">
+                    <h2>Here is yours top post!</h2>
+                </div>
+                <div class="card__sm-block">
+                    {% if top_post_by_view == "You don't have posts yet" %}
+                        <div class="card__sm__post-title">
+                            <h3>{{ top_post_by_view }}</h3>
+                        </div>
+                    {% else %}
+                        <div class="post__views__link">
+                            <div class="card__sm__post-title">
+                                <h3>{{ top_post_by_view.pictures.title }}</h3>
+                            </div>
+                            <div class="post-views">
+                                <strong>You already have: </strong>{{ top_post_by_view.pictures.views }} views
+                            </div>
+                        </div>
+                        <div class="post__views__link-wrapper">
+                            <div class="post-link">
+                                <a class="btn btn-lg btn-primary"
+                                   href="{{ top_post_by_view.pictures.get_absolute_url }}">Click to
+                                    see it</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post__card-wrapper">
+        {% if posts == "You don't have posts yet" %}
+            <div class="card__sm__post-title justify-content-center align-items-center m-5">
+                <h3>{{ posts }}</h3>
+            </div>
+        {% else %}
+            {% for post in posts %}
+                <div class="post__card">
+                    <div class="post__title">
+                        <div class="title__wrapper">
+                            <h2>{{ post.pictures.title }}</h2>
+                            <h5><strong>Posted on:</strong> {{ post.pictures.date }}</h5>
+                            <h5><strong>Amount of views:</strong> {{ post.pictures.views }}</h5>
+                        </div>
+                    </div>
+                    <div class="post__body">
+                        <div class="post__image">
+                            <img src="{{ post }}" alt="" width="490" height="500">
+                        </div>
+                        <div class="post__description">
+                            <div class="description" style="margin-right: 20px; margin-top: 20px">
+                                <p>
+                                    {{ post.pictures.description }}
+                                </p>
+                            </div>
+                            <div class="button">
+                                <a class="btn btn-lg btn-primary" href="{{ post.pictures.get_absolute_url }}">Read the
+                                    article</a>
+                                <a class="btn btn-lg btn-primary"
+                                   onclick="deletePost({{ post.pictures.pk }})">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        let deletePost = (pk) => {
+            $.get(`http://{{ site }}/posts/delete/${pk}/`, function () {
+                alert("Post deleted!");
+            });
+        }
+    </script>
+{% endblock %}

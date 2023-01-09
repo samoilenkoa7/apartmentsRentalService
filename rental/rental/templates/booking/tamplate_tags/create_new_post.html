@@ -1,0 +1,6 @@
+<form method="post" enctype="multipart/form-data" action="{% url 'create' %}" class="registration__form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {{ form_pics.as_p }}
+    <button type="submit" style="margin-top: 20px" class="btn btn-primary btn-lg">Post</button>
+</form>

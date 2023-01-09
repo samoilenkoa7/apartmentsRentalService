@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <div class="wrapper">
+    {% for post in posts %}
+        <div class="post__card-wrapper">
+        <div class="post__card-single">
+            <div class="title__block">
+                <div class="title">
+                    {{ post.pictures.title }}
+                </div>
+            </div>
+            <div class="card__body-block">
+                <div class="card__body-image">
+                    <div class="image">
+                        <img src="{{ post }}" width="400px">
+                    </div>
+                    <div class="post__text-block">
+                        <div class="post-text">
+                            {{ post.pictures.description }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card__footer-block">
+                <div class="card__footer">
+                    <div class="card__footer-date">
+                        <strong>Posted on: </strong>{{ post.pictures.date }}
+                    </div>
+                    <div class="card__footer-views">
+                        <strong>Views: </strong>{{ post.pictures.views }}
+                    </div>
+                    <div class="button__get-element">
+                        <a href="{{ post.pictures.get_absolute_url }}" class="btn btn-lg btn-primary">Check offer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+{% endblock %}

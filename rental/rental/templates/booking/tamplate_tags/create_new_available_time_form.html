@@ -1,0 +1,11 @@
+{% if time_creation_form %}
+<div class="create_new_time_wrapper col-lg-4">
+    <form action="{% url 'add-time' pk=post.pictures.pk %}" method="post" class="form-control">
+        {% csrf_token %}
+        {{ time_creation_form.as_p }}
+        <button type="submit" class="btn btn-primary btn-lg">
+            Add
+        </button>
+    </form>
+</div>
+{% endif %}

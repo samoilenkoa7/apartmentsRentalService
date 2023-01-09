@@ -1,0 +1,7 @@
+<div class="form__booking-wrapper col-md-4">
+    <form action="{{ post.pictures.get_booking_url }}" method="post" class="form-control booking">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary btn-lg">Book</button>
+    </form>
+</div>

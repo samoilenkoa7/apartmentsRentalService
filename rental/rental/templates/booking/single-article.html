@@ -1,0 +1,38 @@
+{% extends 'index.html' %}
+{% block content %}
+    <div class="post__card-wrapper">
+        <div class="post__card-single">
+            <div class="title__block">
+                <div class="title">
+                    {{ post.pictures.title }}
+                </div>
+            </div>
+            <div class="card__body-block">
+                <div class="card__body-image">
+                    <div class="image">
+                        <img src="{{ post }}" width="400px">
+                    </div>
+                    <div class="post__text-block">
+                        <div class="post-text">
+                            {{ post.pictures.description }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card__footer-block">
+                <div class="card__footer">
+                    <div class="card__footer-date">
+                        {{ post.pictures.date }}
+                    </div>
+                    <div class="card__footer-views">
+                        {{ views }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form__wrapper">
+            {% include 'booking/tamplate_tags/reservation-post.html' %}
+            {% include 'booking/tamplate_tags/create_new_available_time_form.html' %}
+        </div>
+    </div>
+{% endblock %}
