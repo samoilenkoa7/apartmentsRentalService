@@ -2,20 +2,16 @@ import os
 from pathlib import Path
 import environ
 
-
 env = environ.Env()
 environ.Env.read_env(env_file='../.env')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 SECRET_KEY = env.get_value('SECRET_KEY')
-
 
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -25,10 +21,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # additional libraries
     "corsheaders",
+    'rest_framework.authtoken',
+    'rest_framework',
+    'djoser',
 
-    'authorization',
-    'booking'
+    # apps
+    'authorization.apps.AuthorizationConfig',
+    'booking.apps.BookingConfig',
+    'api.apps.ApiConfig'
 ]
 
 MIDDLEWARE = [
@@ -64,7 +66,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'rental.wsgi.application'
 
-
 DATABASES = {
     'default': {
         "ENGINE": "django.db.backends.postgresql",
@@ -75,7 +76,6 @@ DATABASES = {
         "PORT": 5432,  # default postgres port
     }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -92,7 +92,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -101,7 +100,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'rental/static'),
@@ -109,7 +107,6 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -166,4 +163,14 @@ LOGGING = {
             'propagate': True,
         },
     },
+}
+
+# rest framework setup
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ]
 }
