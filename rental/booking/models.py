@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 
 from django.contrib.auth import get_user_model
 
+
 User = get_user_model()
 
 
@@ -48,7 +49,7 @@ class ApartmentPicture(models.Model):
 
 class ApartmentAvailableTime(models.Model):
     time = models.DateTimeField('Available time')
-    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE, null=True)
+    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE, related_name='available_time', null=True)
 
     def __str__(self):
         return f'Available time for {self.apartment.title} \n Time: {self.time}'
@@ -56,7 +57,7 @@ class ApartmentAvailableTime(models.Model):
 
 class UserReservation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE)
+    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE, related_name='reservation_time')
     time = models.OneToOneField(ApartmentAvailableTime, on_delete=models.CASCADE)
 
     def __str__(self):
