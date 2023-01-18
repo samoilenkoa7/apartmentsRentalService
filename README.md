@@ -29,7 +29,7 @@ Endpoint |HTTP Method | CRUD Method | Result
 `api/v1/posts` | GET | READ | Get all rental posts with available time and pictures
 `api/v1/posts/:id` | GET | READ | Get a single post with it available time and pictures 
 `api/v1/posts/`| POST | CREATE | Create a new post
-`api/v1/posts/:id` | DELETE | DELETE | Delete a movie
+`api/v1/posts/:id` | DELETE | DELETE | Delete 
 
 ## Use
 We can test the API using [curl](https://curl.haxx.se/) or [httpie](https://github.com/jakubroztocil/httpie#installation), or we can use [Postman](https://www.postman.com/)
@@ -93,7 +93,7 @@ we get:
 ```
 Instead, if we try to access with credentials:
 ```
-http http://127.0.0.1:8000/api/v1/movies/ "Authorization: df128fbda1ee47512e81f87a5470b62c5300a863"
+http http://127.0.0.1:8000/api/v1/post/ "Authorization: df128fbda1ee47512e81f87a5470b62c5300a863"
 ```
 we get all posts that was posted bu user
 ```
@@ -159,7 +159,7 @@ We got two tokens, the access token will be used to authenticated all the reques
 
 The API has some restrictions:
 -   The posts are always associated with a creator (user who created it).
--   Only the creator of a movie may update or delete it.
+-   Only the creator of a post may update or delete it.
 
 ### Commands
 ```
@@ -170,5 +170,5 @@ http GET http://127.0.0.1:8000/api/v1/posts/{post_id}/ "Authorization: {YOUR_TOK
 Create a new post
 http POST http://127.0.0.1:8000/api/v1/posts/ "Authorization: {YOUR_TOKEN}" title="Apartment in LA" description="Description" location="Los Angeles" price="300" views="0" user="1"  
 Delete a post
-http DELETE http://127.0.0.1:8000/api/v1/movies/{post_id}/ "Authorization: {YOUR_TOKEN}"
+http DELETE http://127.0.0.1:8000/api/v1/post/{post_id}/ "Authorization: {YOUR_TOKEN}"
 ```
